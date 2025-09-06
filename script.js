@@ -16,13 +16,14 @@ window.addEventListener('load', revealEvents);
 const carousels = document.querySelectorAll('.carousel');
 
 carousels.forEach(carousel => {
-  let scrollAmount = 0;
-  const scrollStep = 2; // velocidad
-  function autoScroll() {
-    scrollAmount += scrollStep;
-    if(scrollAmount > carousel.scrollWidth - carousel.clientWidth) scrollAmount = 0;
-    carousel.scrollTo({ left: scrollAmount, behavior: 'smooth' });
-    requestAnimationFrame(autoScroll);
-  }
-  autoScroll();
+  const imgs = carousel.querySelectorAll("img");
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % imgs.length; // avanza en bucle
+    carousel.scrollTo({
+      left: index * 270, // 260px de imagen + 10px gap
+      behavior: "smooth"
+    });
+  }, 3000); // cada 3 segundos
 });
